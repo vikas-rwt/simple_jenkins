@@ -45,32 +45,4 @@ pipeline {
             }
         }
     }
-    post {
-        always {
-            echo "This will always run regardless of the completion status"
-        }
-        cleanup {
-            echo "Cleaning the workspace"
-            cleanWs()
-        }
-        success {
-            echo "This will run if the build succeeded"
-        }
-        failure {
-            echo "This will run if the job failed"
-            mail to: "ezz.email@gmail.com",
-                 subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} has failed",
-                 body: "For more info on the pipeline failure, check out the console output at ${env.BUILD_URL}"
-        }
-        unstable {
-            echo "This will run if the completion status was 'unstable', usually by test failures"
-        }
-        changed {
-            echo "This will run if the state of the pipeline has changed"
-            echo "For example, if the previous run failed but is now successful"
-        }
-        fixed {
-            echo "This will run if the previous run failed or unstable and now is successful"
-        }
-    }
 }
